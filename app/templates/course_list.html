@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+    <h1>Courses</h1>
+    
+    <!-- Search Bar -->
+    <form method="get" action="" style="margin-bottom: 20px;">
+        <input type="text" name="q" placeholder="Search by title, category, or tutor name" value="{{ query|default:'' }}" style="padding: 8px; width: 300px;">
+        <button type="submit" style="padding: 8px;">Search</button>
+    </form>
+    
+    <div class="courses">
+        {% if courses %}
+            {% for course in courses %}
+                <div class="course" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; display: inline-block; width: 220px; text-align: center;">
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" width="200" style="margin-bottom: 10px;">
+                    <h3><a href="{% url 'course_detail' course.id %}" style="text-decoration: none; color: #333;">{{ course.title }}</a></h3>
+                    <p><strong>Created by</strong> {{ course.tutor_name }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No courses found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
